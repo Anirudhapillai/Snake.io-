@@ -3,264 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grok's Arcade Minigames Galaxy - Powered by xAI</title>
+    <title>Roblox Adventure Land - Fun for Kids!</title>
     <style>
         body {
-            font-family: 'Courier New', monospace;
-            background-color: #000000;
-            color: #00ff00;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #00b2ee, #ff6b35, #4ecdc4);
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        header {
             text-align: center;
-            image-rendering: pixelated; /* For that arcade crispness */
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
         }
         h1 {
             font-size: 3em;
-            text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; /* Neon arcade glow */
-            color: #ffff00; /* Yellow for retro vibe */
+            text-shadow: 3px 3px #000;
+            margin: 0;
         }
-        .intro {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            color: #ff69b4; /* Hot pink for fun */
-        }
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+        .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 20px;
         }
-        .game-card {
-            background-color: #1a1a1a;
-            border: 4px solid #ffff00;
-            border-radius: 0; /* Sharp edges for arcade cabinets */
-            padding: 15px;
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 0 10px #ff00ff;
         }
-        .game-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px #00ffff, 0 0 30px #ff00ff;
+        .block {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            background: #4a90e2;
+            margin: 5px;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
-        .game-card h3 {
-            color: #00ffff; /* Cyan titles */
-            margin: 10px 0;
+        .block:hover {
+            transform: scale(1.1);
         }
-        .game-card p {
-            font-size: 0.9em;
-            color: #cccccc;
-        }
-        canvas {
-            background-color: #000;
-            border: 2px solid #ffff00;
-            image-rendering: pixelated;
+        #buildArea {
+            min-height: 300px;
+            border: 3px dashed #fff;
+            background: rgba(255, 255, 255, 0.05);
         }
         button {
-            background-color: #ff00ff;
-            color: #000;
+            background: #ff6b35;
+            color: #fff;
             border: none;
-            padding: 10px;
-            font-family: inherit;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1.2em;
             cursor: pointer;
-            margin-top: 10px;
+            margin: 10px;
+            transition: background 0.3s;
         }
         button:hover {
-            background-color: #00ffff;
+            background: #e55a2b;
+        }
+        .quiz-question {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .quiz-options button {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+        }
+        #score {
+            font-size: 2em;
+            color: #ffd700;
+        }
+        .maze {
+            display: grid;
+            grid-template-columns: repeat(10, 30px);
+            grid-template-rows: repeat(10, 30px);
+            gap: 1px;
+            background: #000;
+            margin: 20px auto;
+            width: fit-content;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .maze-cell {
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            position: relative;
+        }
+        .wall { background: #333; }
+        .start { background: #00ff00; }
+        .end { background: #ff0000; }
+        .player { background: #0000ff; border-radius: 50%; }
+        .instructions {
+            text-align: left;
+            font-size: 1.1em;
         }
         footer {
-            margin-top: 50px;
-            font-size: 0.8em;
-            color: #999999;
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <h1>Grok's Arcade Minigames Galaxy</h1>
-    <div class="intro">
-        Alright, human! You've requested playable games in arcade style? I've upgraded the hub to full retro arcade mode: neon glows, pixel vibes, and actual playable demos. Since coding 107 full games here would crash the universe (or at least this response), I've implemented a few simple arcade-style games using HTML5 canvas and JS. The rest are placeholders – imagine them as unlocked levels. Copy-paste this into an HTML file, open in your browser, and insert coins (metaphorically). For real: Tic-Tac-Toe is a basic board game, Pong is classic bouncy action, Snake is slithery fun, and so on. Extend with your own JS for the full 107!
-    </div>
-    
-    <div class="game-grid">
-        <div class="game-card">
-            <h3>Game 1: Cosmic Tic-Tac-Toe</h3>
-            <p>Battle in a 3x3 grid – X vs O, arcade style!</p>
-            <div id="ticTacToeBoard" style="display: grid; grid-template-columns: repeat(3, 50px); margin: 0 auto; width: 150px;"></div>
-            <button onclick="resetTicTacToe()">Reset</button>
-            <script>
-                let tttBoard = ['', '', '', '', '', '', '', '', ''];
-                let tttCurrentPlayer = 'X';
-                const tttContainer = document.getElementById('ticTacToeBoard');
-                function initTicTacToe() {
-                    tttContainer.innerHTML = '';
-                    tttBoard.forEach((cell, index) => {
-                        const cellDiv = document.createElement('div');
-                        cellDiv.style.width = '50px';
-                        cellDiv.style.height = '50px';
-                        cellDiv.style.border = '1px solid #00ff00';
-                        cellDiv.style.fontSize = '40px';
-                        cellDiv.style.color = '#ffff00';
-                        cellDiv.style.display = 'flex';
-                        cellDiv.style.alignItems = 'center';
-                        cellDiv.style.justifyContent = 'center';
-                        cellDiv.style.cursor = 'pointer';
-                        cellDiv.onclick = () => makeTicTacToeMove(index);
-                        cellDiv.textContent = cell;
-                        tttContainer.appendChild(cellDiv);
-                    });
-                }
-                function makeTicTacToeMove(index) {
-                    if (tttBoard[index] === '' && !checkTicTacToeWinner()) {
-                        tttBoard[index] = tttCurrentPlayer;
-                        tttCurrentPlayer = tttCurrentPlayer === 'X' ? 'O' : 'X';
-                        initTicTacToe();
-                        if (checkTicTacToeWinner()) alert('Winner!');
-                    }
-                }
-                function checkTicTacToeWinner() {
-                    const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-                    return wins.some(combo => tttBoard[combo[0]] && tttBoard[combo[0]] === tttBoard[combo[1]] && tttBoard[combo[1]] === tttBoard[combo[2]]);
-                }
-                function resetTicTacToe() {
-                    tttBoard = ['', '', '', '', '', '', '', '', ''];
-                    tttCurrentPlayer = 'X';
-                    initTicTacToe();
-                }
-                initTicTacToe();
-            </script>
+    <header>
+        <h1>🟦 Roblox Adventure Land! 🎮</h1>
+        <p>Welcome to the ultimate fun zone inspired by Roblox! Build, quiz, and maze your way to adventure!</p>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <h2>🏗️ Build Your World!</h2>
+            <p>Click blocks to build your dream Roblox world! Drag them around.</p>
+            <div id="buildArea" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div>
+                <div class="block" draggable="true" ondragstart="drag(event)" style="background: #4a90e2;"></div>
+                <div class="block" draggable="true" ondragstart="drag(event)" style="background: #7ed321;"></div>
+                <div class="block" draggable="true" ondragstart="drag(event)" style="background: #f5cd30;"></div>
+                <div class="block" draggable="true" ondragstart="drag(event)" style="background: #d0021b;"></div>
+            </div>
+            <button onclick="clearBuild()">Clear World</button>
         </div>
-        <div class="game-card">
-            <h3>Game 2: Quantum Pong</h3>
-            <p>Paddle the ball – don't let it pass!</p>
-            <canvas id="pongCanvas" width="300" height="200"></canvas>
-            <button onclick="startPong()">Start/Reset</button>
-            <script>
-                const pongCanvas = document.getElementById('pongCanvas');
-                const pongCtx = pongCanvas.getContext('2d');
-                let pongBallX = 150, pongBallY = 100, pongBallDX = 2, pongBallDY = -2;
-                let pongPaddleY = 80, pongPaddleHeight = 40, pongPaddleWidth = 10;
-                let pongScore = 0;
-                let pongInterval;
-                function drawPong() {
-                    pongCtx.clearRect(0, 0, 300, 200);
-                    pongCtx.fillStyle = '#00ff00';
-                    pongCtx.fillRect(290 - pongPaddleWidth, pongPaddleY, pongPaddleWidth, pongPaddleHeight);
-                    pongCtx.beginPath();
-                    pongCtx.arc(pongBallX, pongBallY, 5, 0, Math.PI*2);
-                    pongCtx.fill();
-                    pongCtx.fillText('Score: ' + pongScore, 10, 20);
-                }
-                function updatePong() {
-                    pongBallX += pongBallDX;
-                    pongBallY += pongBallDY;
-                    if (pongBallY < 0 || pongBallY > 200) pongBallDY = -pongBallDY;
-                    if (pongBallX < 0) { pongBallDX = -pongBallDX; }
-                    if (pongBallX > 290 - pongPaddleWidth && pongBallY > pongPaddleY && pongBallY < pongPaddleY + pongPaddleHeight) {
-                        pongBallDX = -pongBallDX;
-                        pongScore++;
-                    } else if (pongBallX > 300) {
-                        clearInterval(pongInterval);
-                        alert('Game Over! Score: ' + pongScore);
-                    }
-                    drawPong();
-                }
-                function startPong() {
-                    clearInterval(pongInterval);
-                    pongBallX = 150; pongBallY = 100; pongBallDX = 2; pongBallDY = -2;
-                    pongPaddleY = 80; pongScore = 0;
-                    pongInterval = setInterval(updatePong, 10);
-                }
-                pongCanvas.addEventListener('mousemove', (e) => {
-                    pongPaddleY = e.clientY - pongCanvas.getBoundingClientRect().top - pongPaddleHeight / 2;
-                    if (pongPaddleY < 0) pongPaddleY = 0;
-                    if (pongPaddleY > 200 - pongPaddleHeight) pongPaddleY = 200 - pongPaddleHeight;
-                });
-            </script>
+
+        <div class="section">
+            <h2>🧠 Roblox Quiz Time!</h2>
+            <p>Test your Roblox knowledge! How many can you get right?</p>
+            <div class="quiz-question" id="question"></div>
+            <div class="quiz-options" id="options"></div>
+            <div id="score">Score: 0</div>
+            <button onclick="nextQuestion()">Next Question</button>
         </div>
-        <div class="game-card">
-            <h3>Game 3: AI Snake Slither</h3>
-            <p>Grow your snake – avoid walls!</p>
-            <canvas id="snakeCanvas" width="200" height="200"></canvas>
-            <button onclick="startSnake()">Start/Reset</button>
-            <script>
-                const snakeCanvas = document.getElementById('snakeCanvas');
-                const snakeCtx = snakeCanvas.getContext('2d');
-                let snake = [{x: 10, y: 10}];
-                let snakeDX = 10, snakeDY = 0;
-                let foodX = 50, foodY = 50;
-                let snakeScore = 0;
-                let snakeInterval;
-                function drawSnake() {
-                    snakeCtx.clearRect(0, 0, 200, 200);
-                    snakeCtx.fillStyle = '#ffff00';
-                    snake.forEach(part => snakeCtx.fillRect(part.x, part.y, 10, 10));
-                    snakeCtx.fillStyle = '#ff00ff';
-                    snakeCtx.fillRect(foodX, foodY, 10, 10);
-                    snakeCtx.fillStyle = '#00ff00';
-                    snakeCtx.fillText('Score: ' + snakeScore, 10, 190);
-                }
-                function updateSnake() {
-                    const head = {x: snake[0].x + snakeDX, y: snake[0].y + snakeDY};
-                    if (head.x < 0 || head.x >= 200 || head.y < 0 || head.y >= 200 || snake.some(part => part.x === head.x && part.y === head.y)) {
-                        clearInterval(snakeInterval);
-                        alert('Game Over! Score: ' + snakeScore);
-                        return;
-                    }
-                    snake.unshift(head);
-                    if (head.x === foodX && head.y === foodY) {
-                        snakeScore++;
-                        foodX = Math.floor(Math.random() * 19) * 10;
-                        foodY = Math.floor(Math.random() * 19) * 10;
-                    } else {
-                        snake.pop();
-                    }
-                    drawSnake();
-                }
-                function startSnake() {
-                    clearInterval(snakeInterval);
-                    snake = [{x: 10, y: 10}];
-                    snakeDX = 10; snakeDY = 0;
-                    foodX = 50; foodY = 50;
-                    snakeScore = 0;
-                    snakeInterval = setInterval(updateSnake, 100);
-                }
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'ArrowUp' && snakeDY === 0) { snakeDX = 0; snakeDY = -10; }
-                    if (e.key === 'ArrowDown' && snakeDY === 0) { snakeDX = 0; snakeDY = 10; }
-                    if (e.key === 'ArrowLeft' && snakeDX === 0) { snakeDX = -10; snakeDY = 0; }
-                    if (e.key === 'ArrowRight' && snakeDX === 0) { snakeDX = 10; snakeDY = 0; }
-                });
-            </script>
-        </div>
-        <div class="game-card">
-            <h3>Game 4: Space Invaders Redux</h3>
-            <p>Placeholder – Shoot 'em up! (Implement your own JS here)</p>
-            <canvas width="300" height="200"></canvas>
-        </div>
-        <!-- Repeat pattern for more games. For example: -->
-        <div class="game-card">
-            <h3>Game 5: Meme Matcher</h3>
-            <p>Placeholder – Match pairs in arcade flips.</p>
-            <canvas width="300" height="200"></canvas>
-        </div>
-        <!-- ... Games 6 through 105 omitted for brevity – duplicate the structure with your own game logic ... -->
-        <div class="game-card">
-            <h3>Game 106: Universe Unfolder</h3>
-            <p>Placeholder – Puzzle the cosmos.</p>
-            <canvas width="300" height="200"></canvas>
-        </div>
-        <div class="game-card">
-            <h3>Game 107: Bonus: Infinite Loop Runner</h3>
-            <p>Placeholder – Endless arcade run.</p>
-            <canvas width="300" height="200"></canvas>
+
+        <div class="section">
+            <h2>🌀 Escape the Noob Maze!</h2>
+            <p>Use arrow keys to move the blue player (you) to the red goal! Avoid walls.</p>
+            <div class="instructions">
+                <p>Tip: Use ← ↑ → ↓ keys to navigate!</p>
+            </div>
+            <div id="maze" class="maze" tabindex="0" onkeydown="movePlayer(event)"></div>
+            <button onclick="resetMaze()">Reset Maze</button>
         </div>
     </div>
-    
+
     <footer>
-        Arcade-ified by Grok. Save as .html, open in browser, and play! For more games, ask for specific JS code – I can generate implementations one by one.
+        <p>Made with ❤️ for Roblox fans! Play safe and have fun! 🚀</p>
     </footer>
+
+    <script>
+        // Build Section
+        function allowDrop(ev) { ev.preventDefault(); }
+        function drag(ev) { ev.dataTransfer.setData("text", ev.target.style.background); }
+        function drop(ev) {
+            ev.preventDefault();
+            var color = ev.dataTransfer.getData("text");
+            var newBlock = document.createElement('div');
+            newBlock.className = 'block';
+            newBlock.style.background = color;
+            newBlock.draggable = true;
+            newBlock.ondragstart = drag;
+            ev.target.appendChild(newBlock);
+        }
+        function clearBuild() {
+            document.getElementById('buildArea').innerHTML = '';
+        }
+
+        // Quiz Section
+        const quizData = [
+            { q: "What year was Roblox created?", o: ["2015", "2006", "2020"], a: 1 },
+            { q: "Who is the founder of Roblox?", o: ["Mark Zuckerberg", "David Baszucki", "Elon Musk"], a: 1 },
+            { q: "What is the currency in Roblox?", o: ["Dollars", "Robux", "Coins"], a: 1 },
+            { q: "What does Roblox stand for?", o: ["Robots Blocks", "Roblox Online", "Robots Explore Blocks Online"], a: 2 }
+        ];
+        let currentQuiz = 0;
+        let score = 0;
+
+        function showQuestion() {
+            const q = quizData[currentQuiz];
+            document.getElementById('question').innerText = q.q;
+            const opts = document.getElementById('options');
+            opts.innerHTML = '';
+            q.o.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(i, q.a);
+                opts.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selected, correct) {
+            if (selected === correct) score++;
+            document.getElementById('score').innerText = `Score: ${score}`;
+            currentQuiz++;
+        }
+
+        function nextQuestion() {
+            if (currentQuiz < quizData.length) {
+                showQuestion();
+            } else {
+                alert(`Quiz over! Final score: ${score}/${quizData.length} 🎉`);
+                currentQuiz = 0;
+                score = 0;
+                document.getElementById('score').innerText = 'Score: 0';
+            }
+        }
+        showQuestion(); // Initial load
+
+        // Maze Section
+        const mazeGrid = [
+            [1,1,1,1,1,1,1,1,1,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,1,1,0,1,1,0,0,1],
+            [1,0,0,1,0,0,1,0,0,1],
+            [1,0,1,1,1,0,1,1,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,1,1,1,1,1,1,1,2,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,1,1,0,1,1,0,0,1],
+            [1,1,1,1,1,1,1,1,1,1]
+        ]; // 0 empty, 1 wall, 2 end
+        let playerX = 1, playerY = 1;
+
+        function generateMaze() {
+            const maze = document.getElementById('maze');
+            maze.innerHTML = '';
+            for (let y = 0; y < 10; y++) {
+                for (let x = 0; x < 10; x++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'maze-cell';
+                    if (mazeGrid[y][x] === 1) cell.classList.add('wall');
+                    if (y === 1 && x === 1) cell.classList.add('start');
+                    if (mazeGrid[y][x] === 2) cell.classList.add('end');
+                    if (y === playerY && x === playerX) {
+                        const player = document.createElement('div');
+                        player.className = 'player';
+                        cell.appendChild(player);
+                    }
+                    maze.appendChild(cell);
+                }
+            }
+        }
+
+        function movePlayer(e) {
+            let newX = playerX, newY = playerY;
+            switch(e.key) {
+                case 'ArrowUp': newY--; break;
+                case 'ArrowDown': newY++; break;
+                case 'ArrowLeft': newX--; break;
+                case 'ArrowRight': newX++; break;
+            }
+            if (newX >= 0 && newX < 10 && newY >= 0 && newY < 10 && mazeGrid[newY][newX] !== 1) {
+                playerX = newX;
+                playerY = newY;
+                generateMaze();
+                if (mazeGrid[newY][newX] === 2) {
+                    alert('You escaped! 🏆');
+                    resetMaze();
+                }
+            }
+        }
+
+        function resetMaze() {
+            playerX = 1;
+            playerY = 1;
+            generateMaze();
+        }
+        generateMaze();
+    </script>
 </body>
 </html>
